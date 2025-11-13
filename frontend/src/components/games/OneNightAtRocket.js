@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import './OneNightAtRocket.css';
-import backround from "./Images/Designer.png"
+import backround from "./Images/Designer.gif"
 import scare from "./Images/Scare.png"
 // Example images (replace with your own)
 const images = [
