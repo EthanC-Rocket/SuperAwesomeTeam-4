@@ -1,8 +1,0 @@
-flask
-flask-cors
-flask-sqlalchemy
-flask-jwt-extended
-pytest
-requests
-bcrypt
-python-dotenv

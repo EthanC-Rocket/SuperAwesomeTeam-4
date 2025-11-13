@@ -142,7 +142,7 @@
       "option2": "Skip",
       "category": "Exercise",
       "option1Votes": 0,
-      "option2Votes": 0
+      "option2Votes": 1
     },
     {
       "id": 19,
@@ -189,7 +189,7 @@
       "option1": "Option A",
       "option2": "Option B",
       "category": "TestCat",
-      "option1Votes": 0,
+      "option1Votes": 1,
       "option2Votes": 0
     },
     {
@@ -230,7 +230,7 @@
       "option2": "B",
       "category": "TestCat",
       "option1Votes": 1,
-      "option2Votes": 0
+      "option2Votes": 1
     },
     {
       "id": 30,
