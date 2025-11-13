@@ -268,7 +268,7 @@ function PersonalityQuiz({ user, token }) {
           body: JSON.stringify({
             game_name: 'Athlete Personality Quiz',
             score: score,
-            metadata: personalityResult.name
+            score_metadata: personalityResult.name
           })
         });
       } catch (err) {
