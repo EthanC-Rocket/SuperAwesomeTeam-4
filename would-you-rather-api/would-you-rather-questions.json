@@ -6,7 +6,7 @@
       "option2": "Have the ability to become invisible",
       "category": "Superpowers",
       "option1Votes": 0,
-      "option2Votes": 1
+      "option2Votes": 0
     },
     {
       "id": 2,
@@ -93,7 +93,7 @@
       "option1": "Always know when someone is lying",
       "option2": "Always get away with lying",
       "category": "Social Skills",
-      "option1Votes": 1,
+      "option1Votes": 0,
       "option2Votes": 0
     },
     {
@@ -141,15 +141,7 @@
       "option1": "Run",
       "option2": "Skip",
       "category": "Exercise",
-      "option1Votes": 0,
-      "option2Votes": 0
-    },
-    {
-      "id": 19,
-      "option1": "Trip",
-      "option2": "Fall",
-      "category": "Other",
-      "option1Votes": 0,
+      "option1Votes": 1,
       "option2Votes": 0
     }
   ]
