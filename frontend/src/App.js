@@ -9,6 +9,7 @@ import RocketMans from './components/games/RocketMans';
 import DungeonCrawler from './components/games/DungeonCrawler';
 import PersonalityQuiz from './components/games/PersonalityQuiz';
 import WouldYouRather from './components/games/WouldYouRather';
+import Zork from './components/games/Zork'; 
 
 
 function App() {
