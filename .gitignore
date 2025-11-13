@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -67,3 +68,6 @@ Thumbs.db
 
 # Project specific
 *.log
+=======
+node_modules/
+>>>>>>> 1cea002c6abf7ee262d6be7f31dee3301445ad17
