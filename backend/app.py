@@ -6,6 +6,7 @@ import bcrypt
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
+from openai import OpenAI
 
 load_dotenv()
 
@@ -19,6 +20,9 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 CORS(app)
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
+
+# Initialize OpenAI client
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # Models
 class User(db.Model):
@@ -159,6 +163,26 @@ def get_user():
         'username': user.username,
         'email': user.email
     }), 200
+
+@app.route('/api/zork', methods=['POST'])
+def play_zork():
+    try:
+        user_input = request.json.get('input', '')
+        
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are playing the game Zork. Respond only with game actions and descriptions."},
+                {"role": "user", "content": user_input}
+            ]
+        )
+        
+        return jsonify({
+            'response': response.choices[0].message.content
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
