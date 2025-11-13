@@ -13,20 +13,14 @@ function Hub({ user, onLogout, token }) {
 
   const fetchScores = async () => {
     try {
-      console.log('Fetching scores for user:', user?.username, 'with token:', token ? 'present' : 'missing');
       const response = await fetch('/api/scores', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data);
       if (response.ok) {
-        console.log('Setting scores:', data);
         setScores(data);
-      } else {
-        console.error('Failed to fetch scores:', response.status, data);
       }
     } catch (err) {
       console.error('Failed to fetch scores:', err);
@@ -74,8 +68,26 @@ function Hub({ user, onLogout, token }) {
 
   return (
     <div className="hub-container">
+      <div className="sidebar">
+       {user ? (
+            <div className="user-info">
+              <p>Welcome, {user.username}!</p>
+              <button className="logout-btn" onClick={onLogout}>Logout</button>
+            </div>
+          ) : (
+            <div className="user-info">
+                <p>Welcome, Guest!</p>
+              <Link to="/login">
+                <button className="logout-btn">Login</button>
+              </Link>
+              {' '}
+              <Link to="/register">
+                <button className="logout-btn">Register</button>
+              </Link>
+            </div>
+          )}
       {user && (
-        <div className="sidebar">
+        <>
           <h2>Your Scores</h2>
           {scores.length > 0 ? (
             scores.map((score, index) => (
@@ -87,28 +99,19 @@ function Hub({ user, onLogout, token }) {
           ) : (
             <p>No scores yet. Play some games!</p>
           )}
-        </div>
+        </>
       )}
+      {user ? (<></>
+          ) : (
+            <div className="user-info">
+                <p>Register to record your scores!</p>
+            </div>
+          )}
+      </div>
       
       <div className="main-content">
         <div className="hub-header">
-          <h1>🎮 GameHub</h1>
-          {user ? (
-            <div className="user-info">
-              <p>Welcome, {user.username}!</p>
-              <button className="logout-btn" onClick={onLogout}>Logout</button>
-            </div>
-          ) : (
-            <div className="user-info">
-              <Link to="/login">
-                <button className="logout-btn">Login</button>
-              </Link>
-              {' '}
-              <Link to="/register">
-                <button className="logout-btn">Register</button>
-              </Link>
-            </div>
-          )}
+          <h1> GameHub</h1>
         </div>
 
         <div className="games-grid">
