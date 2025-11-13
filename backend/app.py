@@ -6,6 +6,7 @@ import bcrypt
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
+from quiz_engine import AthleteQuizEngine
 
 load_dotenv()
 
@@ -19,6 +20,9 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=1)
 CORS(app)
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
+
+# Initialize quiz engine
+quiz_engine = AthleteQuizEngine()
 
 # Models
 class User(db.Model):
@@ -34,7 +38,7 @@ class Score(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     game_name = db.Column(db.String(50), nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    metadata = db.Column(db.String(500))  # JSON string for additional data
+    game_metadata = db.Column(db.String(500))  # JSON string for additional data (renamed from metadata to avoid SQLAlchemy conflict)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 # Create tables
@@ -111,7 +115,7 @@ def get_scores():
             game_scores[score.game_name] = {
                 'game_name': score.game_name,
                 'score': score.score,
-                'metadata': score.metadata,
+                'metadata': score.game_metadata,
                 'created_at': score.created_at.isoformat()
             }
     
@@ -130,7 +134,7 @@ def add_score():
     if not game_name or score is None:
         return jsonify({'error': 'Missing required fields'}), 400
 
-    new_score = Score(user_id=user_id, game_name=game_name, score=score, metadata=metadata)
+    new_score = Score(user_id=user_id, game_name=game_name, score=score, game_metadata=metadata)
     db.session.add(new_score)
     db.session.commit()
 
@@ -140,7 +144,7 @@ def add_score():
             'id': new_score.id,
             'game_name': new_score.game_name,
             'score': new_score.score,
-            'metadata': new_score.metadata,
+            'metadata': new_score.game_metadata,
             'created_at': new_score.created_at.isoformat()
         }
     }), 201
@@ -159,6 +163,35 @@ def get_user():
         'username': user.username,
         'email': user.email
     }), 200
+
+@app.route('/api/athlete-quiz/calculate', methods=['POST'])
+def calculate_athlete_quiz():
+    """Calculate athlete personality quiz results."""
+    data = request.get_json()
+    answers = data.get('answers', [])
+    
+    if not answers:
+        return jsonify({'error': 'No answers provided'}), 400
+    
+    try:
+        result = quiz_engine.calculate_result(answers)
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/athlete-quiz/profiles', methods=['GET'])
+def get_athlete_profiles():
+    """Get all athlete personality profiles."""
+    profiles = quiz_engine.get_all_profiles()
+    return jsonify(profiles), 200
+
+@app.route('/api/athlete-quiz/profile/<athlete_type>', methods=['GET'])
+def get_athlete_profile(athlete_type):
+    """Get a specific athlete personality profile."""
+    profile = quiz_engine.get_profile(athlete_type)
+    if profile:
+        return jsonify(profile), 200
+    return jsonify({'error': 'Profile not found'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
