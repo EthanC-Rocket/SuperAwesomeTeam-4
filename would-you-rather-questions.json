@@ -13,7 +13,7 @@
       "option1": "Live in a world without music",
       "option2": "Live in a world without movies",
       "category": "Entertainment",
-      "option1Votes": 1,
+      "option1Votes": 2,
       "option2Votes": 0
     },
     {
@@ -69,7 +69,7 @@
       "option1": "Be famous but poor",
       "option2": "Be rich but unknown",
       "category": "Lifestyle",
-      "option1Votes": 0,
+      "option1Votes": 1,
       "option2Votes": 1
     },
     {
@@ -206,7 +206,7 @@
       "option2": "B",
       "category": "TestCat",
       "option1Votes": 0,
-      "option2Votes": 0
+      "option2Votes": 1
     },
     {
       "id": 27,

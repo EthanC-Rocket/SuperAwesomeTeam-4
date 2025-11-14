@@ -5,72 +5,47 @@ A web application featuring a collection of mini-games with user authentication 
 ## Features
 
 - **User Authentication**: Register and login to track your scores
-- **Score Tracking**: Your best scores are saved and displayed in the sidebar
-- **5 Mini-Games**:
-  - 🔢 **Sudoku**: Classic number puzzle game with difficulty levels
+- **Score Tracking**: Your best scores are saved and displayed in the hub
+- **Mini-Games**:
+  - 🔢 **Sudoku**: Classic number puzzle game
   - 🚀 **RocketMans**: Navigate your rocket through obstacles
   - ⚔️ **Dungeon Crawler**: Explore dungeons, fight monsters, and level up
   - 🧠 **Personality Quiz**: Discover your personality type
   - 🤔 **Would You Rather**: Make choices and get personality insights
+  - 📜 **Zork**: Classic text adventure
+  - 👾 **One Night At Rocket**: Arcade-style challenge
+  - 🪨 **Rocxs**: Interactive image toggle game
+
+## Project Structure
+
+- `backend/` - Flask API, authentication, score management
+- `frontend/` - React app, game components, routing
+- `frontend/src/components/games/` - All game components
+- `would-you-rather-questions.json` - Data for Would You Rather game
 
 ## Setup Instructions
 
-### Backend Setup (Python Flask)
+### Unified Setup (Frontend & Backend)
 
-1. Navigate to the backend directory:
-```powershell
-cd GameHub\backend
-```
-
-2. Create a virtual environment (optional but recommended):
-```powershell
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-```
-
-3. Install dependencies:
-```powershell
-pip install -r requirements.txt
-```
-
-4. Run the Flask server:
-```powershell
-python app.py
-```
-
-The backend will run on `http://localhost:5000`
-
-### Frontend Setup (React)
-
-1. Navigate to the frontend directory:
-```powershell
-cd GameHub\frontend
-```
-
-2. Install dependencies:
-```powershell
-npm install
-```
-
-3. Install loglevel for logging:
-```powershell
-npm install loglevel
-```
-
-4. Start the React development server:
-```powershell
-npm start
-```
-
-The frontend will run on `http://localhost:3000`
+1. From the project root, run:
+   ```powershell
+   npm install
+   npm start
+   ```
+   This will:
+   - Install all frontend requirements
+   - Install backend requirements
+   - Start the React development server
+   - Start the backend Flask APIs automatically
+   The frontend runs on `http://localhost:3000` and the backend runs on `http://localhost:5000`.
 
 ## How to Use
 
-1. **Start both servers** (backend and frontend)
-2. **Open your browser** to `http://localhost:3000`
-3. **Register an account** or continue as a guest
-4. **Click on any game** to start playing
-5. **Your scores will be saved** if you're logged in and displayed in the left sidebar
+1. Start the unified setup (see above)
+2. Open your browser to `http://localhost:3000`
+3. Register an account or continue as a guest
+4. Click on any game to start playing
+5. Your scores will be saved if you're logged in and displayed in the hub
 
 ## Game Controls
 
@@ -79,73 +54,19 @@ The frontend will run on `http://localhost:3000`
 - **Dungeon Crawler**: Use arrow keys to move and attack
 - **Personality Quiz**: Click your preferred answers
 - **Would You Rather**: Choose between two options
+- **Zork**: Type commands to play
+- **One Night At Rocket**: Arcade controls
+- **Rocxs**: Click the image to toggle
 
-## Technologies Used
+## API & Proxy
 
-### Frontend
-- React 18
-- React Router for navigation
-- CSS for styling
-- Axios for API calls
+- React frontend proxies API requests to Flask backend via `frontend/package.json` (`"proxy": "http://localhost:5000"`).
+- Would You Rather game may use a separate API endpoint (`http://127.0.0.1:8000`).
 
-### Backend
-- Flask (Python web framework)
-- SQLAlchemy (Database ORM)
-- Flask-JWT-Extended (Authentication)
-- bcrypt (Password hashing)
-- SQLite (Database)
+## Dependencies
 
-## Project Structure
+- Backend: See `backend/requirements.txt`
+- Frontend: Installed automatically with `npm install` (see `frontend/package.json`)
 
-```
-GameHub/
-├── backend/
-│   ├── app.py              # Flask application and API routes
-│   ├── requirements.txt    # Python dependencies
-│   ├── .env               # Environment variables
-│   └── gamehub.db         # SQLite database (created automatically)
-│
-└── frontend/
-    ├── public/
-    │   └── index.html
-    ├── src/
-    │   ├── components/
-    │   │   ├── Hub.js           # Main game hub
-    │   │   ├── Login.js         # Login form
-    │   │   ├── Register.js      # Registration form
-    │   │   └── games/
-    │   │       ├── Sudoku.js
-    │   │       ├── RocketMans.js
-    │   │       ├── DungeonCrawler.js
-    │   │       ├── PersonalityQuiz.js
-    │   │       └── WouldYouRather.js
-    │   ├── App.js
-    │   ├── App.css
-    │   └── index.js
-    └── package.json
-```
-
-## API Endpoints
-
-- `POST /api/register` - Register a new user
-- `POST /api/login` - Login user
-- `GET /api/user` - Get current user info
-- `GET /api/scores` - Get user's scores
-- `POST /api/scores` - Submit a new score
-
-## Notes
-
-- The database is created automatically on first run
-- Scores are saved only for registered users
-- Guest users can play all games but scores won't be saved
-- The app uses JWT tokens for authentication
-
-## Future Enhancements
-
-- Leaderboards for each game
-- Multiplayer support
-- More games
-- User profiles and avatars
-- Social features (friends, challenges)
-
-Enjoy playing! 🎮
+## Authors
+- NextGen Academy Team 4

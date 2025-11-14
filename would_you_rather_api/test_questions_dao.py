@@ -2,8 +2,6 @@
 import pytest
 from unittest.mock import patch, mock_open
 from would_you_rather_api.questions_dao import QuestionsDAO
-
-
 import os
 
 MOCK_JSON = "mock_questions.json"
